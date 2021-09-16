@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"o2p","l":"Loader"},{"p":"o2p","l":"Main"},{"p":"o2p","l":"MyTranslator"},{"p":"o2p","l":"Normalizator"},{"p":"o2p","l":"Printer"},{"p":"o2p","l":"PrologParser"}]
