@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -22,14 +23,15 @@ import de.tudresden.inf.lat.jcel.owlapi.translator.Translator;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
- * Classe con metodi che servono per la normalizzazione di una OWLOntology
- * @author Andrea
+ * Classe con metodi che servono per la normalizzazione di assiomi complessi
+ * @author Andrea Gallacci
  *
  */
 
 public class Normalizator {
 	
 	private HashMap<NormalizedIntegerAxiom, ComplexIntegerAxiom> originalAxiomMap;
+	private HashMap<NormalizedIntegerAxiom, Integer> axiomMap;
 	private boolean isNormalized;
 	
 	
@@ -39,27 +41,15 @@ public class Normalizator {
 	public Normalizator(){
 		///
 		originalAxiomMap = new HashMap<NormalizedIntegerAxiom, ComplexIntegerAxiom>();
+		axiomMap = new HashMap<NormalizedIntegerAxiom, Integer>();
 		isNormalized = false;
 	}
 	
-	/**
-	 * Carica un file .owl in memoria
-	 * @param path - percorso relativo del file
-	 * @return oggetto OWLOntology
-	 * @throws OWLOntologyCreationException
-	 */
-	public static OWLOntology loadOntology(String path) throws OWLOntologyCreationException {
-		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-		IRI ontologyIRI = IRI.create(new File(path));
-		OWLOntology ontology = man.loadOntologyFromOntologyDocument(ontologyIRI);
-		return ontology;
-	}
 	
-	///
 	
 	/**
 	 * Normalizza un Set di assiomi integerBased
-	 * @param integerAxioms
+	 * @param integerAxioms assiomi interi complessi
 	 * @return Set di assiomi normalizzati
 	 */
 	public static Set<NormalizedIntegerAxiom> normalize(Set<ComplexIntegerAxiom> integerAxioms){
@@ -68,29 +58,32 @@ public class Normalizator {
 		
 	}
 	
-	///
 	
 	
-	/* idea: conservare l'assioma originale dopo la normalizzazione in una hashmap
-	 * dove la chiave è l'assioma normalizzato e il valore restituito è l'assioma originale.
-	 * Basta tenere quello intero o si deve convertire anche quello originale?
-	*/
-	public Set<NormalizedIntegerAxiom> normalizeSaveOriginal(Set<ComplexIntegerAxiom> integerAxioms){
+	/**
+	 * Normalizza salvando gli originali mettendo il mapping tra assioma normalizzato e indice di quello
+	 * complesso
+	 * 
+	 * @param integerAxioms vettore degli assiomi complessi
+	 * @return insieme degli assiomi normalizzati
+	 */
+	public Set<NormalizedIntegerAxiom> normalizeSaveOriginal2(Vector<ComplexIntegerAxiom> integerAxioms){
 		OntologyNormalizer normalizer = new OntologyNormalizer();
 		HashSet<NormalizedIntegerAxiom> allNormalizedAxioms = new HashSet<NormalizedIntegerAxiom>();
+		IntegerOntologyObjectFactoryImpl ontologyFactory = new IntegerOntologyObjectFactoryImpl();
 		
-		for(ComplexIntegerAxiom a : integerAxioms) {
+		for(int i = 0; i < integerAxioms.size(); i++) {
 			//metto a in un HashSet perché normalize vuole un set e non un singolo assioma
 			HashSet<ComplexIntegerAxiom> singleAxiom = new HashSet<ComplexIntegerAxiom>();
-			singleAxiom.add(a);
+			singleAxiom.add(integerAxioms.elementAt(i));
 			
 			Set<NormalizedIntegerAxiom> normalizedAxioms = 
-					normalizer.normalize(singleAxiom, new IntegerOntologyObjectFactoryImpl());
+					normalizer.normalize(singleAxiom, ontologyFactory);
 			
 			allNormalizedAxioms.addAll(normalizedAxioms);
 			
 			for(NormalizedIntegerAxiom na : normalizedAxioms) {
-				originalAxiomMap.put(na, a);
+				axiomMap.put(na, i);
 			}
 			
 		}
@@ -99,26 +92,25 @@ public class Normalizator {
 		return allNormalizedAxioms;
 	}
 	
-	public ComplexIntegerAxiom getOriginalAxiom(NormalizedIntegerAxiom a) {
+	/**
+	 * Dato un assioma normalizzato ritorna l'indice del rispettivo assioma complesso originale
+	 * @param a assioma normalizzato
+	 * @return indice (nel vettore degli assiomi complessi) dell'assioma originale 
+	 */
+	public int getOriginalAxiom2(NormalizedIntegerAxiom a) {
 		if(isNormalized)
-			return originalAxiomMap.get(a);
+			return axiomMap.get(a);
 		else
-			return null;
+			return -1;
 	}
 	
-	public HashMap<NormalizedIntegerAxiom, ComplexIntegerAxiom> getOriginalMap(){
-		return originalAxiomMap;
+	/**
+	 * 
+	 * @return mappa che associa assioma normalizzato con indice del complesso originale
+	 */
+	public HashMap<NormalizedIntegerAxiom, Integer> getOriginalMap2(){
+		return axiomMap;
 	}
-	
-	
-	
-	
-	///
-	
-	
-	//todo: fare metodo unico per normalizzare dall'inizio alla fine. Riempire attributi di classe
-	//		e mettere dei getter
-	
 	
 	
 	
