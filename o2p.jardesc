@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<jardesc>
+    <jar path="C:/Users/andre/Desktop/prova/o2p.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/o2p/o2p.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=o2p/src\/main\/java&lt;o2p{Main.java[Main" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=o2p/src\/main\/java"/>
+        <javaElement handleIdentifier="=o2p/src\/main\/resources"/>
+        <file path="/o2p/.project"/>
+        <file path="/o2p/.gitignore"/>
+        <folder path="/o2p/target"/>
+        <file path="/o2p/pom.xml"/>
+        <folder path="/o2p/doc"/>
+        <folder path="/o2p/res"/>
+        <javaElement handleIdentifier="=o2p/src\/test\/resources"/>
+        <javaElement handleIdentifier="=o2p/src\/test\/java"/>
+        <folder path="/o2p/src"/>
+        <file path="/o2p/.classpath"/>
+        <folder path="/o2p/output"/>
+    </selectedElements>
+</jardesc>
