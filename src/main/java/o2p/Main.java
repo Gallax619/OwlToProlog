@@ -50,7 +50,7 @@ public class Main {
 			System.out.println("Second argument [optional]: output directory path, ./output if not specified");
 			System.exit(-1);
 		}
-		MyTranslator translator = new MyTranslator();
+		OWLIntTranslator translator = new OWLIntTranslator();
 
 		//carica il file OWL
 		OWLOntology ontology;

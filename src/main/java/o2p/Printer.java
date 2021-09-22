@@ -42,7 +42,7 @@ public class Printer {
 	 * @param translator translator utilizzato per creare gli assiomi integer based
 	 * @param out printwriter su cui verrà stampato il risultato
 	 */
-	public static void printOriginalAxioms(Vector<ComplexIntegerAxiom> ca, MyTranslator translator, PrintWriter out) {
+	public static void printOriginalAxioms(Vector<ComplexIntegerAxiom> ca, OWLIntTranslator translator, PrintWriter out) {
 		for(int i = 0; i < ca.size(); i++) {
 			out.println(parseOriginalAxiom(ca.elementAt(i).toString(), translator));
 		}
@@ -56,7 +56,7 @@ public class Printer {
 	 * @param translator translator translator utilizzato per creare gli assiomi integer based
 	 * @param out printwriter su cui verrà stampato il risultato
 	 */
-	public static void printOwlClasses(Set<NormalizedIntegerAxiom> normAxioms, MyTranslator translator, PrintWriter out) {
+	public static void printOwlClasses(Set<NormalizedIntegerAxiom> normAxioms, OWLIntTranslator translator, PrintWriter out) {
 		//trova l'indice massimo
 		int currentMax = 0;
 		for(NormalizedIntegerAxiom a : normAxioms) {
@@ -79,7 +79,7 @@ public class Printer {
 	 * @param translator translator translator translator utilizzato per creare gli assiomi integer based
 	 * @return assioma owl
 	 */
-	private static String parseOriginalAxiom(String intAxiom, MyTranslator translator) {
+	private static String parseOriginalAxiom(String intAxiom, OWLIntTranslator translator) {
 		String result = intAxiom;
 		int numbers = countNumbers(intAxiom);
 		for(int i = 0; i < numbers; i++) {

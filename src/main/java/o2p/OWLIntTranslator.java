@@ -24,11 +24,11 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * @author Andrea Gallacci
  *
  */
-public class MyTranslator {
+public class OWLIntTranslator {
 	
 	private Translator translator;
 	
-	public MyTranslator() {
+	public OWLIntTranslator() {
 		translator = new Translator(new OWLDataFactoryImpl(), new IntegerOntologyObjectFactoryImpl());
 	}
 	
